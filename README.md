@@ -3,6 +3,16 @@
 Language to describe the structure of your data, similar to [protobuf].
 This should be a basis to generate database migrations as well as code.
 
+## Progress
+
+### current
+
+### todo
+
+- generate simple model from `json` definition
+
+### done
+
 ## Possible Syntax
 
 The core syntax should be minimal and only support the definition of the
