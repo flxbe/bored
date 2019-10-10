@@ -9,9 +9,12 @@ This should be a basis to generate database migrations as well as code.
 
 ### todo
 
-- generate simple model from `json` definition
+- generate optional attributes
+- generate relations
 
 ### done
+
+- generate simple model from `json` definition
 
 ## Possible Syntax
 
