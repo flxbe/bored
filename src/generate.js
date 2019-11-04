@@ -9,11 +9,15 @@ function generate(config, filePath) {
 }
 
 function generateContent(config) {
-  let content = `const Sequelize = require("sequelize");
+  let content = `import { Sequelize, DataTypes, Model } from "sequelize";
 
-class ${config.name} extends Sequelize.Model {}
+export class ${config.name} extends Model {
+  ${generateClassAttributeList(config)}
+}
 
-module.exports = function ${config.name}Model(sequelize) {
+export default function ${config.name}Model(sequelize: Sequelize): typeof ${
+    config.name
+  } {
   ${config.name}.init(
     {
       ${generateAttributeList(config)}
@@ -28,7 +32,21 @@ module.exports = function ${config.name}Model(sequelize) {
 };
   `;
 
-  return prettier.format(content, { parser: "babel" });
+  return prettier.format(content, { parser: "typescript" });
+}
+
+function generateClassAttributeList(config) {
+  const attributes = config.attributes.map(attribute => {
+    const optionalIdentifier = "!";
+    const type = getClassType(attribute);
+    return `public ${attribute.name}${optionalIdentifier}: ${type};`;
+  });
+
+  return attributes.join("\n");
+}
+
+function getClassType(attribute) {
+  return attribute.type;
 }
 
 function generateAttributeList(config) {
@@ -45,10 +63,10 @@ function generateAttributeList(config) {
 function getType(typeName) {
   switch (typeName) {
     case "string":
-      return "Sequelize.STRING";
+      return "DataTypes.STRING";
     default:
       throw Error(`Unknown type name: ${typeName}`);
   }
 }
 
-generate(UserConfig, "./src/generated/user.js");
+generate(UserConfig, "./src/generated/user.ts");

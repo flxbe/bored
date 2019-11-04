@@ -6,7 +6,8 @@
   "scripts": {
     "start:db": "docker run --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=db -p 5432:5432 -it postgres",
     "generate": "node ./src/generate.js",
-    "test": "jest"
+    "build": "npm run generate && tsc -p .",
+    "test": "npm run generate && jest"
   },
   "author": "Felix Bernhardt",
   "license": "MIT",
@@ -17,6 +18,16 @@
     "sequelize": "^5.19.5"
   },
   "devDependencies": {
-    "jest": "^24.9.0"
+    "@types/jest": "^24.0.21",
+    "@types/node": "^12.12.5",
+    "@types/validator": "^10.11.3",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.4"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
   }
 }

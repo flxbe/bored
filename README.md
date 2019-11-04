@@ -9,12 +9,14 @@ This should be a basis to generate database migrations as well as code.
 
 ### todo
 
+- change generator to typescript
 - add value object semantics
 - generate optional attributes
 - generate relations
 
 ### done
 
+- change project to typescript
 - build basic user service
 - generate simple model from `json` definition
 

@@ -1,6 +1,6 @@
-const Sequelize = require("sequelize");
-const UserModel = require("../src/generated/user");
-const UserService = require("../src/user-service");
+import { Sequelize } from "sequelize";
+import UserModel from "../src/generated/user";
+import UserService from "../src/user-service";
 
 describe("Creating a user", () => {
   const sequelize = new Sequelize("db", "root", "root", {

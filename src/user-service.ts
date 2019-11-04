@@ -1,11 +1,13 @@
-const assert = require("assert");
+import { Models } from "./generated/models";
 
-module.exports = class UserService {
-  constructor(models) {
+export default class UserService {
+  private models: Models;
+
+  constructor(models: Models) {
     this.models = models;
   }
 
-  async register(email, password) {
+  async register(email: string, password: string) {
     const user = await this.models.User.create({
       email,
       username: "username",
@@ -15,7 +17,7 @@ module.exports = class UserService {
     return user;
   }
 
-  async login(email, password) {
+  async login(email: string, password: string) {
     const user = await this.models.User.findOne({ where: { email } });
 
     if (!user) {
@@ -28,4 +30,4 @@ module.exports = class UserService {
 
     return user;
   }
-};
+}
