@@ -11,13 +11,11 @@ function generate(config, filePath) {
 function generateContent(config) {
   let content = `import { Sequelize, DataTypes, Model } from "sequelize";
 
-export class ${config.name} extends Model {
+export default class ${config.name} extends Model {
   ${generateClassAttributeList(config)}
-}
 
-export default function ${config.name}Model(sequelize: Sequelize): typeof ${
-    config.name
-  } {
+  public static connect(sequelize: Sequelize) {
+
   ${config.name}.init(
     {
       ${generateAttributeList(config)}
@@ -27,9 +25,8 @@ export default function ${config.name}Model(sequelize: Sequelize): typeof ${
       modelName: "${config.name.toLowerCase()}"
     }
   );
-
-  return ${config.name};
-};
+  }
+}
   `;
 
   return prettier.format(content, { parser: "typescript" });

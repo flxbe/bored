@@ -1,14 +1,8 @@
-import { Models } from "./generated/models";
+import User from "./generated/user";
 
 export default class UserService {
-  private models: Models;
-
-  constructor(models: Models) {
-    this.models = models;
-  }
-
   async register(email: string, password: string) {
-    const user = await this.models.User.create({
+    const user = await User.create({
       email,
       username: "username",
       password
@@ -18,7 +12,7 @@ export default class UserService {
   }
 
   async login(email: string, password: string) {
-    const user = await this.models.User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       throw new Error("User not found");

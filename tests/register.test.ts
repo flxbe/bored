@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import UserModel from "../src/generated/user";
+import User from "../src/generated/user";
 import UserService from "../src/user-service";
 
 describe("Creating a user", () => {
@@ -9,9 +9,7 @@ describe("Creating a user", () => {
     logging: false
   });
 
-  const Models = {
-    User: UserModel(sequelize)
-  };
+  User.connect(sequelize);
 
   beforeAll(async () => {
     await sequelize.authenticate();
@@ -27,7 +25,7 @@ describe("Creating a user", () => {
 
   describe("with valid credentials", () => {
     test("should work", async () => {
-      const service = new UserService(Models);
+      const service = new UserService();
 
       await service.register("test@test.de", "abcd1234");
 
