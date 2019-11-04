@@ -9,11 +9,13 @@ This should be a basis to generate database migrations as well as code.
 
 ### todo
 
+- add value object semantics
 - generate optional attributes
 - generate relations
 
 ### done
 
+- build basic user service
 - generate simple model from `json` definition
 
 ## Possible Syntax

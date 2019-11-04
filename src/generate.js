@@ -1,7 +1,7 @@
 const fs = require("fs");
 const prettier = require("prettier");
 
-const UserConfig = require("./user.config");
+const UserConfig = require("./configs/user.config");
 
 function generate(config, filePath) {
   const content = generateContent(config);

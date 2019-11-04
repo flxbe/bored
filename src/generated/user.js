@@ -5,15 +5,15 @@ class User extends Sequelize.Model {}
 module.exports = function UserModel(sequelize) {
   User.init(
     {
-      userName: {
+      email: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      firstName: {
+      username: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      lastName: {
+      password: {
         type: Sequelize.STRING,
         allowNull: false
       }
