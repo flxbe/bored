@@ -7,9 +7,10 @@ This should be a basis to generate database migrations as well as code.
 
 ### current
 
+- change generator to typescript
+
 ### todo
 
-- change generator to typescript
 - add value object semantics
 - generate optional attributes
 - generate relations

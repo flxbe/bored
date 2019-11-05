@@ -1,4 +1,15 @@
-module.exports = {
+export type AttributeConfig = {
+  name: string;
+  type: "string" | "int";
+  optional: boolean;
+};
+
+export type ModelConfig = {
+  name: string;
+  attributes: Array<AttributeConfig>;
+};
+
+const config: ModelConfig = {
   name: "User",
   attributes: [
     {
@@ -18,3 +29,5 @@ module.exports = {
     }
   ]
 };
+
+export default config;

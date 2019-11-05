@@ -1,14 +1,17 @@
-const fs = require("fs");
-const prettier = require("prettier");
+import * as fs from "fs";
+import * as prettier from "prettier";
 
-const UserConfig = require("./configs/user.config");
+import UserConfig, {
+  ModelConfig,
+  AttributeConfig
+} from "./configs/user.config";
 
-function generate(config, filePath) {
+function generate(config: ModelConfig, filePath: string) {
   const content = generateContent(config);
   fs.writeFileSync(filePath, content, { encoding: "utf8" });
 }
 
-function generateContent(config) {
+function generateContent(config: ModelConfig): string {
   let content = `import { Sequelize, DataTypes, Model } from "sequelize";
 
 export default class ${config.name} extends Model {
@@ -32,7 +35,7 @@ export default class ${config.name} extends Model {
   return prettier.format(content, { parser: "typescript" });
 }
 
-function generateClassAttributeList(config) {
+function generateClassAttributeList(config: ModelConfig) {
   const attributes = config.attributes.map(attribute => {
     const optionalIdentifier = "!";
     const type = getClassType(attribute);
@@ -42,11 +45,11 @@ function generateClassAttributeList(config) {
   return attributes.join("\n");
 }
 
-function getClassType(attribute) {
+function getClassType(attribute: AttributeConfig): string {
   return attribute.type;
 }
 
-function generateAttributeList(config) {
+function generateAttributeList(config: ModelConfig) {
   const attributes = config.attributes.map(attribute => {
     return `${attribute.name}: {
       type: ${getType(attribute.type)},
@@ -57,7 +60,7 @@ function generateAttributeList(config) {
   return attributes.join("\n");
 }
 
-function getType(typeName) {
+function getType(typeName: string) {
   switch (typeName) {
     case "string":
       return "DataTypes.STRING";
