@@ -7,13 +7,14 @@ This should be a basis to generate database migrations as well as code.
 
 ### current
 
-- auto-generate model tests
+- add value object semantics
 
 ### todo
 
-- add value object semantics
+- auto-generate model tests
 - generate optional attributes
 - generate relations
+- generate model constructor
 
 ### done
 

@@ -23,7 +23,8 @@ function generateFactoryDataInterface(config: ModelConfig): string {
 }
 
 function generateFactoryDataAttribute(attribute: AttributeConfig): string {
-  return `${attribute.name}?: ${attribute.type} | null;`;
+  const type = attribute.optional ? `${attribute.type} | null` : attribute.type;
+  return `${attribute.name}?: ${type};`;
 }
 
 function generateFactory(config: ModelConfig): string {
