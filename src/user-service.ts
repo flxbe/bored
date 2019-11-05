@@ -8,7 +8,7 @@ export type RegisterUserData = {
 };
 
 export default class UserService {
-  async register(data: RegisterUserData) {
+  async register(data: RegisterUserData): Promise<User> {
     const user = await User.create(data);
     return user;
   }

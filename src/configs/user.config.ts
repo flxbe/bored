@@ -6,22 +6,26 @@ const config: ModelConfig = {
     {
       name: "email",
       type: "string",
-      optional: false
+      optional: false,
+      tags: ["Email"]
     },
     {
       name: "password",
       type: "string",
-      optional: false
+      optional: false,
+      tags: []
     },
     {
       name: "username",
       type: "string",
-      optional: false
+      optional: false,
+      tags: []
     },
     {
       name: "phoneNumber",
       type: "string",
-      optional: true
+      optional: true,
+      tags: ["PhoneNumber"]
     }
   ]
 };

@@ -7,21 +7,24 @@ This should be a basis to generate database migrations as well as code.
 
 ### current
 
-- add value object semantics
-
 ### todo
 
+- generate attribute validations
 - auto-generate model tests
-- generate optional attributes
 - generate relations
-- generate model constructor
 
 ### done
 
+- generate optional attributes
 - change generator to typescript
 - change project to typescript
 - build basic user service
 - generate simple model from `json` definition
+
+### ideas
+
+- generate model constructor (needs another ORM or better type support)
+- add value object semantics (needs another ORM)
 
 ## Possible Syntax
 

@@ -1,9 +1,14 @@
-import { ModelConfig, AttributeConfig } from "./types";
+import {
+  ModelConfig,
+  AttributeConfig,
+  getAttributeType,
+  AttributeType
+} from "./types";
 
 export function generateModelTests(config: ModelConfig): string {
   return `
     import * as faker from "faker";
-    import ${config.name} from "./${config.name.toLowerCase()}";  
+    import ${config.name} from "./${config.name.toLowerCase()}";
 
     ${generateFactoryDataInterface(config)}
     ${generateFactory(config)}
@@ -23,7 +28,8 @@ function generateFactoryDataInterface(config: ModelConfig): string {
 }
 
 function generateFactoryDataAttribute(attribute: AttributeConfig): string {
-  const type = attribute.optional ? `${attribute.type} | null` : attribute.type;
+  const rawType = attribute.type;
+  const type = attribute.optional ? `${rawType} | null` : rawType;
   return `${attribute.name}?: ${type};`;
 }
 
@@ -52,14 +58,17 @@ function getFactoryDataInterfaceName(config: ModelConfig): string {
 function generateDefaultAttributeFaker(config: AttributeConfig): string {
   const faker = getFaker(config);
 
-  return `if (data.${config.name} === undefined) data.${config.name} = ${faker}();`;
+  return `if (data.${config.name} === undefined) data.${config.name} = ${faker};`;
 }
 
 function getFaker(config: AttributeConfig): string {
-  switch (config.type) {
-    case "string":
-      return "faker.lorem.word";
+  const type = getAttributeType(config);
+  switch (type) {
+    case AttributeType.Email:
+      return "faker.internet.email()";
+    case AttributeType.String:
+      return "faker.lorem.word()";
     default:
-      throw new Error(`Unknown data type ${config.type}`);
+      throw new Error(`Unknown data type ${type}`);
   }
 }
