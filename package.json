@@ -1,13 +1,13 @@
 {
   "name": "bored",
   "version": "1.0.0",
-  "description": "A data modeling langauge",
+  "description": "A data modeling language",
   "main": "index.js",
   "scripts": {
     "start:db": "docker run --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=db -p 5432:5432 -it postgres",
-    "generate": "ts-node ./src/generate.ts",
+    "generate": "ts-node ./src/generator/index.ts",
     "build": "npm run generate && tsc -p .",
-    "test": "npm run generate && jest"
+    "test": "npm run generate && jest --runInBand"
   },
   "author": "Felix Bernhardt",
   "license": "MIT",

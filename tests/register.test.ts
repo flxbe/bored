@@ -26,10 +26,15 @@ describe("Creating a user", () => {
   describe("with valid credentials", () => {
     test("should work", async () => {
       const service = new UserService();
+      const data = {
+        email: "test@test.de",
+        password: "abcd1234",
+        username: "test"
+      };
 
-      await service.register("test@test.de", "abcd1234");
+      await service.register(data);
 
-      await service.login("test@test.de", "abcd1234");
+      await service.login(data.email, data.password);
     });
   });
 });

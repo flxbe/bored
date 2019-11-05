@@ -1,17 +1,19 @@
-import * as fs from "fs";
 import * as prettier from "prettier";
 
-import UserConfig, {
-  ModelConfig,
-  AttributeConfig
-} from "./configs/user.config";
+export type AttributeType = "string" | "int";
 
-function generate(config: ModelConfig, filePath: string) {
-  const content = generateContent(config);
-  fs.writeFileSync(filePath, content, { encoding: "utf8" });
+export interface AttributeConfig {
+  name: string;
+  type: AttributeType;
+  optional: boolean;
 }
 
-function generateContent(config: ModelConfig): string {
+export interface ModelConfig {
+  name: string;
+  attributes: Array<AttributeConfig>;
+}
+
+export function generateModel(config: ModelConfig): string {
   let content = `import { Sequelize, DataTypes, Model } from "sequelize";
 
 export default class ${config.name} extends Model {
@@ -68,5 +70,3 @@ function getType(typeName: string) {
       throw Error(`Unknown type name: ${typeName}`);
   }
 }
-
-generate(UserConfig, "./src/generated/user.ts");

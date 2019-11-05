@@ -1,13 +1,15 @@
 import User from "./generated/user";
 
-export default class UserService {
-  async register(email: string, password: string) {
-    const user = await User.create({
-      email,
-      username: "username",
-      password
-    });
+export type RegisterUserData = {
+  email: string;
+  password: string;
+  username?: string;
+  phoneNumber?: string;
+};
 
+export default class UserService {
+  async register(data: RegisterUserData) {
+    const user = await User.create(data);
     return user;
   }
 

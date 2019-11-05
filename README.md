@@ -7,7 +7,7 @@ This should be a basis to generate database migrations as well as code.
 
 ### current
 
-- change generator to typescript
+- auto-generate model tests
 
 ### todo
 
@@ -17,6 +17,7 @@ This should be a basis to generate database migrations as well as code.
 
 ### done
 
+- change generator to typescript
 - change project to typescript
 - build basic user service
 - generate simple model from `json` definition

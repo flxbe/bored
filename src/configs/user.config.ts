@@ -1,13 +1,4 @@
-export type AttributeConfig = {
-  name: string;
-  type: "string" | "int";
-  optional: boolean;
-};
-
-export type ModelConfig = {
-  name: string;
-  attributes: Array<AttributeConfig>;
-};
+import { ModelConfig } from "../generator/generate-model";
 
 const config: ModelConfig = {
   name: "User",
@@ -18,14 +9,19 @@ const config: ModelConfig = {
       optional: false
     },
     {
+      name: "password",
+      type: "string",
+      optional: false
+    },
+    {
       name: "username",
       type: "string",
       optional: false
     },
     {
-      name: "password",
+      name: "phoneNumber",
       type: "string",
-      optional: false
+      optional: true
     }
   ]
 };
