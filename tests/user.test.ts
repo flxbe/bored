@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import User from "../src/generated/user";
+import { createUser } from "../src/generated/user.test";
 
 describe("Constructing a new user", () => {
   const sequelize = new Sequelize("db", "root", "root", {
@@ -23,10 +24,8 @@ describe("Constructing a new user", () => {
   });
 
   describe("with correct data", () => {
-    test("should work", async () => {
-      const user = await createUser();
-
-      expect(user.email).toEqual("test@test.de");
+    it("should work", async () => {
+      await expect(createUser()).resolves.not.toThrow();
     });
   });
 
@@ -38,18 +37,9 @@ describe("Constructing a new user", () => {
     });
   });
 
-  type CreateUserData = {
-    email?: string | null;
-    password?: string | null;
-    username?: string | null;
-    phoneNumber?: string | null;
-  };
-
-  async function createUser(data: CreateUserData = {}): Promise<User> {
-    if (data.email === undefined) data.email = "test@test.de";
-    if (data.password === undefined) data.password = "abcd1234";
-    if (data.username === undefined) data.username = "username";
-
-    return User.create(data);
-  }
+  describe("with missing email", () => {
+    test("should fail", async () => {
+      await expect(createUser({ email: null })).rejects.toThrow();
+    });
+  });
 });

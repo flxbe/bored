@@ -18,10 +18,12 @@
     "sequelize": "^5.19.5"
   },
   "devDependencies": {
+    "@types/faker": "^4.1.7",
     "@types/jest": "^24.0.21",
     "@types/node": "^12.12.5",
     "@types/prettier": "^1.18.3",
     "@types/validator": "^10.11.3",
+    "faker": "^4.1.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
@@ -30,6 +32,10 @@
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
-    }
+    },
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/generated/"
+    ]
   }
 }

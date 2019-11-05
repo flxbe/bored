@@ -1,4 +1,4 @@
-import { ModelConfig } from "../generator/generate-model";
+import { ModelConfig } from "../generator/types";
 
 const config: ModelConfig = {
   name: "User",
