@@ -8,7 +8,6 @@ import {
 export function generateModel(config: ModelConfig): string {
   return `
     import { Sequelize, DataTypes, Model } from "sequelize";
-    import Email from "../gen-utils/email";
 
     export default class ${config.name} extends Model {
       ${generateClassAttributeList(config)}
