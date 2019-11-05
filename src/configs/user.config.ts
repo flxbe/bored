@@ -10,7 +10,7 @@ const config: ModelConfig = {
       tags: ["Email"]
     },
     {
-      name: "password",
+      name: "hash",
       type: "string",
       optional: false,
       tags: []

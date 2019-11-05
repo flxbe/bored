@@ -1,5 +1,8 @@
 import { Sequelize } from "sequelize";
 import User from "../src/generated/user";
+
+import Email from "../src/email";
+import Password from "../src/password";
 import UserService from "../src/user-service";
 
 describe("Creating a user", () => {
@@ -27,8 +30,8 @@ describe("Creating a user", () => {
     test("should work", async () => {
       const service = new UserService();
       const data = {
-        email: "test@test.de",
-        password: "abcd1234",
+        email: new Email("test@test.de"),
+        password: new Password("abcd1234"),
         username: "test"
       };
 
