@@ -37,9 +37,15 @@ describe("Constructing a new user", () => {
     });
   });
 
-  describe("with missing email", () => {
+  describe("with an invalid email", () => {
     test("should fail", async () => {
-      await expect(createUser({ email: null })).rejects.toThrow();
+      await expect(createUser({ email: "invalid mail" })).rejects.toThrow();
+    });
+  });
+
+  describe("with an empty email", () => {
+    test("should fail", async () => {
+      await expect(createUser({ email: "" })).rejects.toThrow();
     });
   });
 });

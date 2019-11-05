@@ -1,4 +1,9 @@
-import { getAttributeType, ModelConfig } from "./types";
+import {
+  getAttributeType,
+  ModelConfig,
+  AttributeConfig,
+  AttributeType
+} from "./types";
 
 export function generateClassAttributeList(config: ModelConfig) {
   const attributes = config.attributes.map(attribute => {
@@ -14,7 +19,8 @@ export function generateTableAttributeList(config: ModelConfig) {
   const attributes = config.attributes.map(attribute => {
     return `${attribute.name}: {
       type: ${getColumnType(attribute.type)},
-      allowNull: ${attribute.optional}
+      allowNull: ${attribute.optional},
+      validate: ${getAttributeValidators(attribute)}
     },`;
   });
 
@@ -27,5 +33,23 @@ function getColumnType(typeName: string) {
       return "DataTypes.STRING";
     default:
       throw Error(`Unknown type name: ${typeName}`);
+  }
+}
+
+function getAttributeValidators(config: AttributeConfig) {
+  const validators: Array<string> = [];
+
+  const typeValidator = getTypeValidator(getAttributeType(config));
+  if (typeValidator) validators.push(typeValidator);
+
+  return `{ ${validators.join(", ")} }`;
+}
+
+function getTypeValidator(type: AttributeType): string | null {
+  switch (type) {
+    case AttributeType.Email:
+      return "isEmail: true";
+    default:
+      return null;
   }
 }

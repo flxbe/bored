@@ -15,6 +15,7 @@ This should be a basis to generate database migrations as well as code.
 
 ### done
 
+- add Email validation
 - generate optional attributes
 - change generator to typescript
 - change project to typescript
