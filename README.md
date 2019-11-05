@@ -7,6 +7,8 @@ This should be a basis to generate database migrations as well as code.
 
 ### current
 
+- improve generation data structure
+
 ### todo
 
 - generate attribute validations

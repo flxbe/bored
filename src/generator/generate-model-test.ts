@@ -1,9 +1,9 @@
 import {
-  ModelConfig,
-  AttributeConfig,
   getAttributeType,
-  AttributeType
-} from "./types";
+  AttributeType,
+  ModelConfig,
+  AttributeConfig
+} from "./config";
 
 export function generateModelTests(config: ModelConfig): string {
   return `

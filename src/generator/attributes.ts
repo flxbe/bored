@@ -1,9 +1,9 @@
 import {
   getAttributeType,
+  AttributeType,
   ModelConfig,
-  AttributeConfig,
-  AttributeType
-} from "./types";
+  AttributeConfig
+} from "./config";
 
 export function generateClassAttributeList(config: ModelConfig) {
   const attributes = config.attributes.map(attribute => {

@@ -20,14 +20,6 @@ export interface ModelConfig {
   attributes: Array<AttributeConfig>;
 }
 
-export function isSemanticType(type: AttributeType): boolean {
-  return !isBasicType(type);
-}
-
-export function isBasicType(type: AttributeType): boolean {
-  return [AttributeType.String].includes(type);
-}
-
 export function getAttributeType(attribute: AttributeConfig): AttributeType {
   switch (attribute.type) {
     case "string":
@@ -40,4 +32,12 @@ export function getAttributeType(attribute: AttributeConfig): AttributeType {
 function getStringType(attribute: AttributeConfig): AttributeType {
   if (attribute.tags.includes("Email")) return AttributeType.Email;
   else return AttributeType.String;
+}
+
+export function isSemanticType(type: AttributeType): boolean {
+  return !isBasicType(type);
+}
+
+export function isBasicType(type: AttributeType): boolean {
+  return [AttributeType.String].includes(type);
 }
