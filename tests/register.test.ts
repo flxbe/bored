@@ -1,34 +1,41 @@
-import { Sequelize } from "sequelize";
-import User from "../src/generated/user";
+import "reflect-metadata";
+import { createConnection, Connection } from "typeorm";
 
+import User from "../src/generated/user";
 import Email from "../src/email";
 import Password from "../src/password";
+import UserRepository from "../src/user-repository";
 import UserService from "../src/user-service";
 
 describe("Creating a user", () => {
-  const sequelize = new Sequelize("db", "root", "root", {
-    host: "localhost",
-    dialect: "postgres",
-    logging: false
-  });
-
-  User.connect(sequelize);
+  let connection: Connection;
 
   beforeAll(async () => {
-    await sequelize.authenticate();
+    connection = await createConnection({
+      type: "mysql",
+      host: "localhost",
+      username: "root",
+      password: "root",
+      database: "db",
+      synchronize: true,
+      logging: false,
+      entities: [User]
+    });
   });
 
   beforeEach(async () => {
-    await sequelize.sync({ force: true });
+    await connection.synchronize();
   });
 
   afterAll(async () => {
-    await sequelize.close();
+    await connection.close();
   });
 
   describe("with valid credentials", () => {
     test("should work", async () => {
-      const service = new UserService();
+      const repository = connection.getCustomRepository(UserRepository);
+
+      const service = new UserService(repository);
       const data = {
         email: new Email("test@test.de"),
         password: new Password("abcd1234"),

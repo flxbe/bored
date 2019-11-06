@@ -1,28 +1,38 @@
-import { ModelConfig } from "./config";
-
-import {
-  generateClassAttributeList,
-  generateTableAttributeList
-} from "./attributes";
+import { ModelConfig, AttributeConfig } from "./config";
 
 export function generateModel(config: ModelConfig): string {
   return `
-    import { Sequelize, DataTypes, Model } from "sequelize";
+    import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-    export default class ${config.name} extends Model {
+    @Entity()
+    export default class ${config.name} {
+
+      @PrimaryGeneratedColumn()
+      id!: number;
+
       ${generateClassAttributeList(config)}
-
-      public static connect(sequelize: Sequelize) {
-      ${config.name}.init(
-        {
-          ${generateTableAttributeList(config)}
-        },
-        {
-          sequelize,
-          modelName: "${config.name.toLowerCase()}"
-        }
-      );
-      }
     }
   `;
+}
+
+function generateClassAttributeList(config: ModelConfig) {
+  const attributes = config.attributes.map(attribute => {
+    const type = attribute.type;
+    const optionalIdentifier = attribute.optional ? "?" : "!";
+    return `
+      @Column(${generateColumnOptions(attribute)})
+      ${attribute.name}${optionalIdentifier}: ${type};
+    `;
+  });
+
+  return attributes.join("\n");
+}
+
+function generateColumnOptions(config: AttributeConfig) {
+  const options: Array<string> = [];
+
+  if (config.optional) options.push("nullable: true");
+
+  if (!options.length) return "";
+  else return `{ ${options.join(",")} }`;
 }

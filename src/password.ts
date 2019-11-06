@@ -1,17 +1,16 @@
 import { hash, compare } from "bcrypt";
 
+export type PasswordHash = string;
 export default class Password {
-  private value: string;
-
-  constructor(value: string) {
+  constructor(private value: string) {
     this.value = value;
   }
 
-  async getHash(): Promise<string> {
+  async getHash(): Promise<PasswordHash> {
     return hash(this.value, 2);
   }
 
-  async validate(hash: string): Promise<boolean> {
+  async validate(hash: PasswordHash): Promise<boolean> {
     return compare(this.value, hash);
   }
 }

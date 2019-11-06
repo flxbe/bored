@@ -7,17 +7,18 @@ This should be a basis to generate database migrations as well as code.
 
 ### current
 
-- improve generation data structure
-
 ### todo
 
+- add Email validation
+- add primary key tag
+- improve generation data structure
 - generate attribute validations
 - auto-generate model tests
 - generate relations
 
 ### done
 
-- add Email validation
+- use `typeorm`
 - generate optional attributes
 - change generator to typescript
 - change project to typescript

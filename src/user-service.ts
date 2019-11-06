@@ -1,20 +1,28 @@
-import User from "./generated/user";
 import Email from "./email";
 import Password from "./password";
+
+import User from "./generated/user";
+import UserRepository from "./user-repository";
 
 export type RegisterUserData = {
   email: Email;
   password: Password;
-  username?: string;
+  username: string;
   phoneNumber?: string;
 };
 
 export default class UserService {
+  private userRepository: UserRepository;
+
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
+  }
+
   async register(data: RegisterUserData): Promise<User> {
     const hash = await data.password.getHash();
 
-    return await User.create({
-      email: data.email.value,
+    return this.userRepository.create({
+      email: data.email,
       hash,
       username: data.username,
       phoneNumber: data.phoneNumber
@@ -22,7 +30,7 @@ export default class UserService {
   }
 
   async login(email: Email, password: Password) {
-    const user: User = await User.findOne({ where: { email: email.value } });
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       throw new Error("User not found");

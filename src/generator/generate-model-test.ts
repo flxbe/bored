@@ -7,7 +7,9 @@ import {
 
 export function generateModelTests(config: ModelConfig): string {
   return `
+    import { Connection, getConnection } from "typeorm";
     import * as faker from "faker";
+
     import ${config.name} from "./${config.name.toLowerCase()}";
 
     ${generateFactoryDataInterface(config)}
@@ -37,16 +39,17 @@ function generateFactory(config: ModelConfig): string {
   const defaultAttributes = config.attributes
     .map(generateDefaultAttributeFaker)
     .join("");
+  const variable = config.name.toLowerCase();
 
   return `
-    export async function create${
-      config.name
-    } (data: ${getFactoryDataInterfaceName(config)} = {}): Promise<${
-    config.name
-  }> {
+    export async function create${config.name} (
+      data: object & ${getFactoryDataInterfaceName(config)} = {}
+    ): Promise<${config.name}> {
       ${defaultAttributes}
 
-      return ${config.name}.create(data);
+      const repository = getConnection().getRepository(${config.name});
+      const ${variable} = repository.create(data);
+      return repository.save(${variable});
     }
   `;
 }
